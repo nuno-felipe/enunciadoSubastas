@@ -23,10 +23,10 @@ $(function(){
 	generarTabla();
 	$(":button").click(function(){
 		if($(this).parent().prev().children("input").val()==""){
-			alert("No has insertao la puja");
+			alert("No has insertado la puja");
 		}else if(isNaN($(this).parent().prev().children("input").val())){
-			alert("No se introdujo un nomero");
-		}else if(compararPuja($(this))){
+			alert("No se introdujo un numero");
+		}else if($(this).parent().prev().children("p").val()<articulos[$(this).attr('id')][1]){
 			alert("La puja debe ser mayor al precio");
 
 		}
@@ -49,6 +49,7 @@ $(function(){
 			}
 		}
 		function rellenarFilas(){
+			var i=0;//contador ID;
 			$("tr td:nth-child(1)").each(function(index){
 				$(this).append("<img/>");
 				$(this).children().attr('src','images/'+articulos[index][0]);
@@ -61,7 +62,8 @@ $(function(){
 			});
 			$("tr td:nth-child(3)").each(function(index){
 				$(this).append("<input type=button>");
-				$(this).children().attr('value',"Pujar");
+				$(this).children().attr('value',"Pujar")
+				$(this).children().attr('id',i);
 			});
 
 
@@ -90,10 +92,10 @@ $(function(){
 			}
 			tabla.append(fila); */
 	}
-	function compararPuja(e){
+	function compararPuja(){
 		for(i=0;i<articulos.length;i++){
-			if(e.parent().prev().children("p").val()==articulos[i][1]){
-				if(articulos[i][2]>e.parent().prev().children("input").val()){
+			if($(this).parent().prev().children("p").val()==articulos[i][1]){
+				if(articulos[i][2]>$(this).parent().prev().children("input").val()){
 					return true;
 				}
 			}
